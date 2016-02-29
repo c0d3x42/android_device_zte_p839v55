@@ -40,6 +40,9 @@ static pthread_mutex_t g_lock = PTHREAD_MUTEX_INITIALIZER;
 const char *const LCD_FILE
         = "/sys/class/leds/lcd-backlight/brightness";
 
+const char *const BLUE_LED_FILE
+        = "/sys/class/leds/bln/brightness";
+
 /**
  * device methods
  */
@@ -104,6 +107,18 @@ set_light_backlight(__attribute__ ((unused)) struct light_device_t *dev,
     return err;
 }
 
+static int
+set_light_notifications(__attribute__((unused))  struct light_device_t *dev,
+        const struct light_state_t *state)
+{
+    pthread_mutex_lock(&g_lock);
+//    g_notification = *state;
+//    handle_speaker_light_locked(dev);
+    pthread_mutex_unlock(&g_lock);
+
+    return 0;
+}
+
 /** Close the lights device */
 static int
 close_lights(struct light_device_t *dev)
@@ -129,6 +144,8 @@ static int open_lights(const struct hw_module_t *module, const char *name,
 
     if (0 == strcmp(LIGHT_ID_BACKLIGHT, name))
         set_light = set_light_backlight;
+    else if (0 == strcmp(LIGHT_ID_NOTIFICATIONS, name))
+        set_light = set_light_notifications;
     else
         return -EINVAL;
 
