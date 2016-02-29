@@ -140,14 +140,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.isUsbOtgEnabled=1
 
 # Wifi
-#PRODUCT_PACKAGES += \
-    hostapd_default.conf \
-    p2p_supplicant_overlay.conf \
-    wpa_supplicant_overlay.conf \
+PRODUCT_PACKAGES += \
     WCNSS_cfg.dat \
     WCNSS_qcom_cfg.ini \
-    WCNSS_qcom_wlan_nv.bin \
-    WCNSS_wlan_dictionary.dat
+    WCNSS_qcom_wlan_nv.bin
 
 #PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/wifi/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini
