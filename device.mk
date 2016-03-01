@@ -229,6 +229,8 @@ PRODUCT_PACKAGES += \
     fstab.qcom \
     init.qcom.rc \
     init.qcom.usb.rc \
+    init.qcom.usb.sh \
+    init.qcom.usb_zte.sh \
     ueventd.qcom.rc
 
 # Thermal

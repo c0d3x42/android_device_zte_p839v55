@@ -489,3 +489,4 @@ service set_sn /system/bin/adjust_serialno setsn
 
 on property:sys.sn_set=1
     start set_sn
+

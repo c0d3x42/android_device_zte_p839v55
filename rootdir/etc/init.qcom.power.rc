@@ -5,8 +5,8 @@ on enable-low-power
     write /sys/class/net/rmnet0/queues/rx-0/rps_cpus 10
 
     # Enable adaptive LMK and set vmpressure_file_min
-    write /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk 1
-    write /sys/module/lowmemorykiller/parameters/vmpressure_file_min 53059
+    ##write /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk 1
+    ##write /sys/module/lowmemorykiller/parameters/vmpressure_file_min 53059
 
     # HMP scheduler settings
     write /proc/sys/kernel/sched_window_stats_policy 3
@@ -14,16 +14,17 @@ on enable-low-power
 
     # HMP Task packing settings
     write /proc/sys/kernel/sched_small_task 20
-    write /sys/class/devfreq/qcom,mincpubw.63/governor "cpufreq"
-    write /sys/class/devfreq/qcom,cpubw.62/governor "bw_hwmon"
-    write /sys/class/devfreq/qcom,cpubw.62/bw_hwmon/io_percent 20
-    write /sys/class/devfreq/qcom,gpubw.59/governor "bw_hwmon"
-    write /sys/class/devfreq/qcom,gpubw.59/bw_hwmon/io_percent 40
+    write /sys/class/devfreq/qcom,mincpubw.64/governor "cpufreq"
+    write /sys/class/devfreq/qcom,cpubw.63/governor "bw_hwmon"
+    write /sys/class/devfreq/qcom,cpubw.63/bw_hwmon/io_percent 20
+    write /sys/class/devfreq/qcom,gpubw.60/governor "bw_hwmon"
+    write /sys/class/devfreq/qcom,gpubw.60/bw_hwmon/io_percent 40
 
     # Disable thermal core_control to update interactive gov settings
     write /sys/module/msm_thermal/core_control/enabled 0
 
     # Enable governor for perf cluster
+    write /sys/devices/system/cpu/cpu0/online 1
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "interactive"
     write /sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay "20000 1113600:50000"
     write /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load 85
@@ -87,17 +88,18 @@ on enable-low-power
     write /sys/devices/system/cpu/cpu1/online 1
     write /sys/devices/system/cpu/cpu2/online 1
     write /sys/devices/system/cpu/cpu3/online 1
+    write /sys/devices/system/cpu/cpu4/online 1
     write /sys/devices/system/cpu/cpu5/online 1
     write /sys/devices/system/cpu/cpu6/online 1
     write /sys/devices/system/cpu/cpu7/online 1
 
     # Enable low power modes
-    write /sys/module/lpm_levels/parameters/sleep_disabled 0
+    write /sys/module/lpm_levels/parameters/sleep_disabled N
 
     start perfd
 
 on charger
-    write /sys/module/lpm_levels/parameters/sleep_disabled 0
+    write /sys/module/lpm_levels/parameters/sleep_disabled N
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "powersave"
 
 on class_start:late_start
@@ -116,8 +118,8 @@ on property:sys.perf.profile=0
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "powersave"
     write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor "powersave"
     write /sys/class/kgsl/kgsl-3d0/devfreq/governor "powersave"
-    write /sys/class/devfreq/qcom,cpubw.62/governor "powersave"
-    write /sys/class/devfreq/qcom,gpubw.59/governor "powersave"
+    write /sys/class/devfreq/qcom,cpubw.63/governor "powersave"
+    write /sys/class/devfreq/qcom,gpubw.60/governor "powersave"
     write /sys/module/msm_thermal/core_control/enabled 1
 
 # Balanced
@@ -128,10 +130,10 @@ on property:sys.perf.profile=1
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "interactive"
     write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor "interactive"
     write /sys/class/kgsl/kgsl-3d0/devfreq/governor "msm-adreno-tz"
-    write /sys/class/devfreq/qcom,cpubw.62/governor "bw_hwmon"
-    write /sys/class/devfreq/qcom,cpubw.62/bw_hwmon/io_percent 20
-    write /sys/class/devfreq/qcom,gpubw.59/governor "bw_hwmon"
-    write /sys/class/devfreq/qcom,gpubw.59/bw_hwmon/io_percent 40
+    write /sys/class/devfreq/qcom,cpubw.63/governor "bw_hwmon"
+    write /sys/class/devfreq/qcom,cpubw.63/bw_hwmon/io_percent 20
+    write /sys/class/devfreq/qcom,gpubw.60/governor "bw_hwmon"
+    write /sys/class/devfreq/qcom,gpubw.60/bw_hwmon/io_percent 40
     write /sys/module/msm_thermal/core_control/enabled 1
     start perfd
 
@@ -149,6 +151,6 @@ on property:sys.perf.profile=2
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "performance"
     write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor "performance"
     write /sys/class/kgsl/kgsl-3d0/devfreq/governor "performance"
-    write /sys/class/devfreq/qcom,cpubw.62/governor "performance"
-    write /sys/class/devfreq/qcom,gpubw.59/governor "performance"
+    write /sys/class/devfreq/qcom,cpubw.63/governor "performance"
+    write /sys/class/devfreq/qcom,gpubw.60/governor "performance"
     write /sys/module/msm_thermal/core_control/enabled 1
