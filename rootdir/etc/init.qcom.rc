@@ -82,13 +82,18 @@ on early-boot
 
 on boot
     # Enable writing to led blink node from userspace
-    chown system system /sys/class/leds/red/blink
-    chown system system /sys/class/leds/green/blink
-    chown system system /sys/class/leds/blue/blink
-    chown system system /sys/class/leds/flashlight/brightness
-    chown system system /sys/class/leds/flashlight-front/brightness
-    chown system camera /sys/class/leds/torch-light0/brightness
-    chmod 0660 /sys/class/leds/torch-light0/brightness
+    chown system system /sys/class/leds/bln/device/mode
+    chown system system /sys/class/leds/bln/device/enable
+    chown system system /sys/class/leds/bln/brightness
+    chown system system /sys/bus/i2c/drivers/Goodix-TS/5-0014/enable_palm_sleep
+    chown system system /sys/bus/i2c/drivers/Goodix-TS/5-0014/enable_gesture_wakeup
+    chmod 0666 /persist/sensors_calibration_params.xml
+    chmod 0660 /sys/module/smb1360_charger_fg/parameters/enable_to_shutdown
+    chmod 0660 /sys/module/smb1360_charger_fg/parameters/charging_disabled
+    chown root system /sys/module/smb1360_charger_fg/parameters/enable_to_shutdown
+    chown root system /sys/module/smb1360_charger_fg/parameters/charging_disabled
+
+
 
     # Create QMUX deamon socket area
     mkdir /dev/socket/qmux_radio 0770 radio radio
