@@ -33,18 +33,25 @@ TARGET_CPU_VARIANT := cortex-a53
 TARGET_GLOBAL_CFLAGS += -mfpu=neon -mfloat-abi=softfp
 TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mfloat-abi=softfp
 
-# Kernel
-TARGET_KERNEL_SOURCE := kernel/zte/msm8916
-TARGET_KERNEL_CONFIG := msm_p839v55_defconfig
-TARGET_KERNEL_ARCH := arm
-BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.selinux=permissive androidboot.hardware=qcom user_debug=30 msm_rtb.filter=0x3F ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci lpm_levels.sleep_disabled=1
+# Kernel - various attempts to compile from source
+#BOARD_CUSTOM_BOOTIMG_MK := device/zte/p839v55/mkbootimg.mk
+#TARGET_KERNEL_SOURCE := kernel/vodafone/su6
+#TARGET_KERNEL_SOURCE := kernel/zte/VF-995N
+#TARGET_KERNEL_CONFIG := msm_P839V55_defconfig
+#TARGET_KERNEL_ARCH := arm
+#BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --tags_offset 0x00000100 
+#BOARD_KERNEL_SEPARATED_DT := true
+
+# Kernel - use precompiled stock 5.1
+# see also device.mk:TARGET_PREBUILT_KERNEL 
+BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --tags_offset 0x00000100 --dt device/zte/p839v55/dt.img
+
+# Kernel - common settings
+BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.selinux=permissive androidboot.hardware=qcom user_debug=30 msm_rtb.filter=0x3F ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci lpm_levels.sleep_disabled=1 debug
 BOARD_KERNEL_BASE := 0x80000000
 BOARD_KERNEL_PAGESIZE := 2048
-#BOARD_KERNEL_SEPARATED_DT := true
 BOARD_RAMDISK_OFFSET     := 0x01000000
 BOARD_KERNEL_TAGS_OFFSET := 0x00000100
-#BOARD_DTBTOOL_ARGS := -2
-BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --tags_offset 0x00000100 --dt device/zte/p839v55/dt.img
 
 # Assert
 TARGET_OTA_ASSERT_DEVICE := P839v55,p839v55
