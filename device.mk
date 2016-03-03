@@ -16,6 +16,31 @@
 
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
+TARGET_PREBUILT_KERNEL := device/zte/p839v55/zImage
+# Prebuilt kernel+modules for stock 5.1
+PRODUCT_COPY_FILES += \
+    $(TARGET_PREBUILT_KERNEL):kernel \
+    $(LOCAL_PATH)/modules/core_ctl.ko:system/lib/modules/core_ctl.ko \
+    $(LOCAL_PATH)/modules/msm-buspm-dev.ko:system/lib/modules/msm-buspm-dev.ko \
+    $(LOCAL_PATH)/modules/pronto/pronto_wlan.ko:system/lib/modules/pronto/pronto_wlan.ko \
+    $(LOCAL_PATH)/modules/gpio_output.ko:system/lib/modules/gpio_output.ko \
+    $(LOCAL_PATH)/modules/mcKernelApi.ko:system/lib/modules/mcKernelApi.ko \
+    $(LOCAL_PATH)/modules/mmc_test.ko:system/lib/modules/mmc_test.ko \
+    $(LOCAL_PATH)/modules/mmc_block_test.ko:system/lib/modules/mmc_block_test.ko \
+    $(LOCAL_PATH)/modules/test-iosched.ko:system/lib/modules/test-iosched.ko \
+    $(LOCAL_PATH)/modules/gpio_event.ko:system/lib/modules/gpio_event.ko \
+    $(LOCAL_PATH)/modules/oprofile.ko:system/lib/modules/oprofile.ko \
+    $(LOCAL_PATH)/modules/ufsd.ko:system/lib/modules/ufsd.ko \
+    $(LOCAL_PATH)/modules/mcDrvModule.ko:system/lib/modules/mcDrvModule.ko \
+    $(LOCAL_PATH)/modules/evbug.ko:system/lib/modules/evbug.ko \
+    $(LOCAL_PATH)/modules/radio-iris-transport.ko:system/lib/modules/radio-iris-transport.ko \
+    $(LOCAL_PATH)/modules/gpio_matrix.ko:system/lib/modules/gpio_matrix.ko \
+    $(LOCAL_PATH)/modules/dma_test.ko:system/lib/modules/dma_test.ko \
+    $(LOCAL_PATH)/modules/gpio_axis.ko:system/lib/modules/gpio_axis.ko \
+    $(LOCAL_PATH)/modules/gpio_input.ko:system/lib/modules/gpio_input.ko \
+    $(LOCAL_PATH)/modules/ansi_cprng.ko:system/lib/modules/ansi_cprng.ko \
+    $(LOCAL_PATH)/modules/spidev.ko:system/lib/modules/spidev.ko
+
 PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := xhdpi
 
@@ -271,3 +296,6 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0
+
+
+
