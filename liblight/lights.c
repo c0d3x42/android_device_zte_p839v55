@@ -94,7 +94,7 @@ static int
 rgb_to_brightness(struct light_state_t const* state)
 {
     int color = state->color & 0x00ffffff;
-    ALOGD("rgb_to_brightness: %d\n", color);
+    //ALOGD("rgb_to_brightness: %d\n", color);
     return ((77*((color>>16)&0x00ff))
             + (150*((color>>8)&0x00ff)) + (29*(color&0x00ff))) >> 8;
 }
@@ -108,7 +108,7 @@ set_light_backlight(struct light_device_t* dev,
     if(!dev) {
         return -1;
     }
-    ALOGD("setting backlight brightness: %d\n", brightness);
+    //ALOGD("setting backlight brightness: %d\n", brightness);
     pthread_mutex_lock(&g_lock);
     err = write_int(LCD_FILE, brightness);
     pthread_mutex_unlock(&g_lock);
@@ -224,11 +224,11 @@ set_light_buttons(struct light_device_t* dev,
     if(!dev) {
         return -1;
     }
-    ALOGD("set_light_buttons: %d\n", state->color & 0xFF);
+    //ALOGD("set_light_buttons: %d\n", state->color & 0xFF);
     pthread_mutex_lock(&g_lock);
     err = write_int(BUTTON_FILE, state->color & 0xFF);
     pthread_mutex_unlock(&g_lock);
-    ALOGD("set_light_buttons: err:%d\n", err);
+    //ALOGD("set_light_buttons: err:%d\n", err);
     return err;
 }
 
@@ -256,7 +256,7 @@ static int open_lights(const struct hw_module_t* module, char const* name,
     int (*set_light)(struct light_device_t* dev,
             struct light_state_t const* state);
 
-    ALOGD("open_lights: %s\n", name );
+    //ALOGD("open_lights: %s\n", name );
     if (0 == strcmp(LIGHT_ID_BACKLIGHT, name))
         set_light = set_light_backlight;
     else if (0 == strcmp(LIGHT_ID_BATTERY, name))
