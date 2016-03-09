@@ -138,6 +138,7 @@ TARGET_POWERHAL_VARIANT := qcom
 
 # QCOM hardware
 BOARD_USES_QCOM_HARDWARE := true
+ADDITIONAL_DEFAULT_PROPERTIES += persist.sys.usb.config=mtp,adb
 
 # Recovery
 TARGET_RECOVERY_FSTAB := device/zte/p839v55/rootdir/etc/fstab.qcom

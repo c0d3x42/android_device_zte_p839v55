@@ -270,7 +270,8 @@ PRODUCT_COPY_FILES += \
 
 # USB
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.sys.isUsbOtgEnabled=1
+    persist.sys.isUsbOtgEnabled=1 \
+    persist.sys.usb.config=mtp
 
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory
