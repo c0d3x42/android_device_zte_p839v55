@@ -35,6 +35,20 @@ $(CMN_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 
 ALL_DEFAULT_INSTALLED_MODULES += $(CMN_SYMLINKS)
 
+# fuseapp
+FUSE_IMAGES := \
+    fuseapp.b00 fuseapp.b01 fuseapp.b02 fuseapp.b03 fuseapp.mdt
+
+FUSE_SYMLINKS := $(addprefix $(TARGET_OUT_ETC)/firmware/,$(notdir $(FUSE_IMAGES)))
+$(FUSE_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
+	@echo "FUSE firmware link: $@"
+	@mkdir -p $(dir $@)
+	@rm -rf $@
+	$(hide) ln -sf /firmware/image/$(notdir $@) $@
+
+ALL_DEFAULT_INSTALLED_MODULES += $(FUSE_SYMLINKS)
+
+
 # ISDB
 ISDB_IMAGES := \
     isdbtmm.b00 isdbtmm.b01 isdbtmm.b02 isdbtmm.b03 isdbtmm.mdt
@@ -77,9 +91,9 @@ ALL_DEFAULT_INSTALLED_MODULES += $(MBA_SYMLINK)
 # MODEM
 MODEM_IMAGES := \
     modem.b00 modem.b01 modem.b02 modem.b03 modem.b04 modem.b05 \
-    modem.b06 modem.b07 modem.b08 modem.b10 modem.b11 modem.b14 \
-    modem.b15 modem.b16 modem.b17 modem.b18 modem.b19 modem.b20 \
-    modem.b23 modem.b24 modem.b25 modem.b27 modem.b28 modem.mdt
+    modem.b06 modem.b08 modem.b09 modem.b12 modem.b13 modem.b14 \
+    modem.b15 modem.b16 modem.b17 modem.b18 modem.b21 modem.b22 \
+    modem.b23 modem.b25 modem.b26 modem.mdt
 
 MODEM_SYMLINKS := $(addprefix $(TARGET_OUT_ETC)/firmware/,$(notdir $(MODEM_IMAGES)))
 $(MODEM_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
@@ -116,6 +130,19 @@ $(WCNSS_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 	$(hide) ln -sf /firmware/image/$(notdir $@) $@
 
 ALL_DEFAULT_INSTALLED_MODULES += $(WCNSS_SYMLINKS)
+
+# WCNSS
+WIDE_IMAGES := \
+    widevine.b00 widevine.b01 widevine.b02 widevine.b03 widevine.mdt
+
+WIDE_SYMLINKS := $(addprefix $(TARGET_OUT_ETC)/firmware/,$(notdir $(WIDE_IMAGES)))
+$(WIDE_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
+	@echo "WIDE Firmware link: $@"
+	@mkdir -p $(dir $@)
+	@rm -rf $@
+	$(hide) ln -sf /firmware/image/$(notdir $@) $@
+
+ALL_DEFAULT_INSTALLED_MODULES += $(WIDE_SYMLINKS)
 
 # Create a link for the WCNSS config file, which ends up as a writable
 # version in /system/etc/wifi/
