@@ -150,4 +150,68 @@ $(shell mkdir -p $(TARGET_OUT)/etc/firmware/wlan/prima; \
     ln -sf /system/etc/wifi/WCNSS_qcom_cfg.ini \
 	    $(TARGET_OUT)/etc/firmware/wlan/prima/WCNSS_qcom_cfg.ini)
 
+
+$(shell mkdir -p $(TARGET_OUT)/rfs/apq/gnss/readonly; \
+    ln -sf /data/rfs/apq/gnss \
+            $(TARGET_OUT)/rfs/apq/gnss/readwrite; \
+    ln -sf /data/rfs/shared \
+            $(TARGET_OUT)/rfs/apq/gnss/shared; \
+    ln -sf /data/tombstones/modem \
+            $(TARGET_OUT)/rfs/apq/gnss/ramdumps; \
+    ln -sf /firmware \
+            $(TARGET_OUT)/rfs/apq/gnss/readonly/firmware)
+
+$(shell mkdir -p $(TARGET_OUT)/rfs/mdm/adsp/readonly; \
+    ln -sf /data/rfs/mdm/adsp \
+            $(TARGET_OUT)/rfs/mdm/adsp/readwrite; \
+    ln -sf /data/rfs/shared \
+            $(TARGET_OUT)/rfs/mdm/adsp/shared; \
+    ln -sf /data/tombstones/lpass \
+            $(TARGET_OUT)/rfs/msm/adsp/ramdumps; \
+    ln -sf /firmware \
+            $(TARGET_OUT)/rfs/mdm/adsp/readonly/firmware)
+
+
+$(shell mkdir -p $(TARGET_OUT)/rfs/mdm/mpss/readonly; \
+    ln -sf /data/rfs/mdm/mpss \
+            $(TARGET_OUT)/rfs/mdm/mpss/readwrite; \
+    ln -sf /data/rfs/shared \
+            $(TARGET_OUT)/rfs/mdm/mpss/shared; \
+    ln -sf /data/tombstones/modem \
+            $(TARGET_OUT)/rfs/msm/mpss/ramdumps; \
+    ln -sf /firmware \
+            $(TARGET_OUT)/rfs/mdm/mpss/readonly/firmware)
+
+$(shell mkdir -p $(TARGET_OUT)/rfs/mdm/sparrow/readonly; \
+    ln -sf /data/rfs/mdm/sparrow \
+            $(TARGET_OUT)/rfs/mdm/sparrow/readwrite; \
+    ln -sf /data/rfs/shared \
+            $(TARGET_OUT)/rfs/mdm/sparrow/shared; \
+    ln -sf /data/tombstones/sparrow \
+            $(TARGET_OUT)/rfs/mdm/sparrow/ramdumps; \
+    ln -sf /firmware \
+            $(TARGET_OUT)/rfs/mdm/sparrow/readonly/firmware)
+
+$(shell mkdir -p $(TARGET_OUT)/rfs/msm/adsp/readonly; \
+    ln -sf /data/rfs/msm/adsp \
+            $(TARGET_OUT)/rfs/msm/adsp/readwrite; \
+    ln -sf /data/rfs/shared \
+            $(TARGET_OUT)/rfs/msm/adsp/shared; \
+    ln -sf /data/tombstones/lpass \
+            $(TARGET_OUT)/rfs/msm/adsp/ramdumps; \
+    ln -sf /firmware \
+            $(TARGET_OUT)/rfs/msm/adsp/readonly/firmware)
+
+
+$(shell mkdir -p $(TARGET_OUT)/rfs/msm/mpss/readonly; \
+    ln -sf /data/rfs/msm/mpss \
+            $(TARGET_OUT)/rfs/msm/mpss/readwrite; \
+    ln -sf /data/rfs/shared \
+            $(TARGET_OUT)/rfs/msm/mpss/shared; \
+    ln -sf /data/tombstones/modem \
+            $(TARGET_OUT)/rfs/msm/mpss/ramdumps; \
+    ln -sf /firmware \
+            $(TARGET_OUT)/rfs/msm/mpss/readonly/firmware)
+
+
 endif
