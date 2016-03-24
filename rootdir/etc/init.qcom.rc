@@ -174,6 +174,13 @@ on post-fs-data
     # Create directory for hostapd
     mkdir /data/misc/wifi 0770 wifi wifi
     mkdir /data/hostapd 0770 system wifi
+    mkdir /data/misc/wifi/sockets 0770 wifi wifi
+    mkdir /data/misc/wifi/wpa_supplicant 0770 wifi wifi
+    mkdir /data/misc/dhcp 0770 dhcp dhcp
+
+    # Create the directories used by CnE subsystem
+    mkdir /data/connectivity 0771 system system
+    chown system system /data/connectivity
 
     # Create /data/time folder for time-services
     mkdir /data/time/ 0700 system system
@@ -244,11 +251,18 @@ service irsc_util /system/bin/irsc_util "/etc/sec_config"
 service rmt_storage /system/bin/rmt_storage
     class core
     user root
+    disabled
+
+on property:ro.boot.emmc=true
+    start rmt_storage
 
 service rfs_access /system/bin/rfs_access
    class core
    user root
    group system net_raw
+
+on property:ro.boot.emmc=true
+    start rfs_access
 
 service config_bluetooth /system/bin/sh /system/etc/init.qcom.bt.sh "onboot"
     class core
@@ -412,18 +426,12 @@ service hostapd /system/bin/hostapd -dd /data/hostapd/hostapd.conf
     oneshot
     disabled
 
-service_redefine ril-daemon /system/bin/rild
-    class main
-    socket rild stream 660 root radio
-    socket rild-debug stream 660 radio system
-    user root
-    group radio cache inet misc audio log qcom_diag
-
 service ril-daemon2 /system/bin/rild -c 2
     class main
     socket rild2 stream 660 root radio
     socket rild-debug2 stream 660 radio system
     user root
+    disabled
     group radio cache inet misc audio sdcard_r sdcard_rw diag qcom_diag log
 
 service ril-daemon3 /system/bin/rild -c 3
